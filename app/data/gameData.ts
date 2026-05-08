@@ -1,3 +1,34 @@
+export const stages = [
+  "2-1",
+  "2-5",
+  "3-2",
+  "3-5",
+  "4-1",
+  "4-2",
+  "5-1",
+];
+
+export const levels = [
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+];
+
+export const economyStates = [
+  "Low gold",
+  "Stable economy",
+  "High economy",
+];
+
+export const hpStates = [
+  "Low HP",
+  "Medium HP",
+  "Healthy",
+];
 export const items = [
   "Sword",
   "Bow",

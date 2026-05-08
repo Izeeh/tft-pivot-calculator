@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { comps } from "./data/comps";
-import { augments, boards, items, itemTags, units } from "./data/gameData";
+import { augments, boards, items, itemTags, stages, units } from "./data/gameData";
 import { calculateBestLines } from "./lib/scoring";
 
 function toggleValue(value: string, list: string[], setList: (value: string[]) => void) {
@@ -52,14 +52,27 @@ export default function Home() {
           <section className="border border-gray-800 rounded-2xl p-6">
             <h2 className="text-xl font-semibold mb-4">Game State</h2>
 
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <input
-                value={stage}
-                onChange={(event) => setStage(event.target.value)}
-                className="rounded-lg bg-gray-900 border border-gray-700 p-3"
-                placeholder="Stage: 3-2"
-              />
+            <div className="mb-6">
+              <p className="font-semibold mb-3">Stage</p>
+              <div className="flex flex-wrap gap-2">
+                {stages.map((stageOption) => (
+                  <button
+                    key={stageOption}
+                    type="button"
+                    onClick={() => setStage(stageOption)}
+                    className={`rounded-lg border px-4 py-2 ${
+                      stage === stageOption
+                        ? "bg-white text-black border-white"
+                        : "bg-gray-900 border-gray-700"
+                    }`}
+                  >
+                    {stageOption}
+                  </button>
+                ))}
+              </div>
+            </div>
 
+            <div className="grid grid-cols-3 gap-4 mb-6">
               <input
                 value={level}
                 onChange={(event) => setLevel(event.target.value)}
@@ -87,6 +100,7 @@ export default function Home() {
               {items.map((item) => (
                 <button
                   key={item}
+                  type="button"
                   onClick={() => toggleValue(item, selectedItems, setSelectedItems)}
                   className={`rounded-lg border px-4 py-2 ${
                     selectedItems.includes(item)
@@ -104,6 +118,7 @@ export default function Home() {
               {augments.map((augment) => (
                 <button
                   key={augment}
+                  type="button"
                   onClick={() => toggleValue(augment, selectedAugments, setSelectedAugments)}
                   className={`rounded-lg border px-4 py-2 ${
                     selectedAugments.includes(augment)
@@ -121,6 +136,7 @@ export default function Home() {
               {boards.map((board) => (
                 <button
                   key={board}
+                  type="button"
                   onClick={() => toggleValue(board, selectedBoards, setSelectedBoards)}
                   className={`rounded-lg border px-4 py-2 ${
                     selectedBoards.includes(board)
@@ -138,6 +154,7 @@ export default function Home() {
               {units.map((unit) => (
                 <button
                   key={unit}
+                  type="button"
                   onClick={() => toggleValue(unit, selectedUnits, setSelectedUnits)}
                   className={`rounded-lg border px-4 py-2 ${
                     selectedUnits.includes(unit)
@@ -173,6 +190,11 @@ export default function Home() {
 
             <div className="mb-6 rounded-xl border border-gray-800 bg-gray-950 p-4">
               <h3 className="font-semibold mb-2">Selected Inputs</h3>
+
+              <p className="text-sm text-gray-400">Stage: {stage || "None"}</p>
+              <p className="text-sm text-gray-400">Level: {level || "None"}</p>
+              <p className="text-sm text-gray-400">Gold: {gold || "None"}</p>
+              <p className="text-sm text-gray-400">HP: {hp || "None"}</p>
 
               <p className="text-sm text-gray-400">
                 Items: {selectedItems.length > 0 ? selectedItems.join(", ") : "None"}

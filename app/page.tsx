@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { comps } from "./data/comps";
 import { augments, boards, items, itemTags } from "./data/gameData";
+import { calculateBestLines } from "./lib/scoring";
 
 function toggleValue(value: string, list: string[], setList: (value: string[]) => void) {
   if (list.includes(value)) {
@@ -10,10 +11,6 @@ function toggleValue(value: string, list: string[], setList: (value: string[]) =
   } else {
     setList([...list, value]);
   }
-}
-
-function clampScore(score: number) {
-  return Math.max(5, Math.min(99, Math.round(score)));
 }
 
 export default function Home() {
@@ -27,99 +24,17 @@ export default function Home() {
   const [selectedBoards, setSelectedBoards] = useState<string[]>([]);
 
   const results = useMemo(() => {
-    const allItemTags = selectedItems.flatMap((item) => itemTags[item] || []);
-    const numericLevel = Number(level);
-    const numericGold = Number(gold);
-    const numericHp = Number(hp);
-
-    return comps
-      .map((comp) => {
-        let score = comp.baseScore;
-        const reasons: string[] = [];
-
-        comp.itemTags.forEach((tag) => {
-          if (allItemTags.includes(tag)) {
-            score += 8;
-            reasons.push(`Good ${tag} item fit`);
-          }
-        });
-
-        comp.augmentTags.forEach((tag) => {
-          if (selectedAugments.includes(tag)) {
-            score += 10;
-            reasons.push(`Good ${tag} augment fit`);
-          }
-        });
-
-        comp.boardTags.forEach((tag) => {
-          if (selectedBoards.includes(tag)) {
-            score += 8;
-            reasons.push(`Good ${tag} board fit`);
-          }
-        });
-
-        if (comp.style === "fast8" || comp.style === "fast9") {
-          if (numericGold >= 40) {
-            score += 8;
-            reasons.push("Good economy for leveling");
-          }
-
-          if (numericHp >= 60) {
-            score += 6;
-            reasons.push("Healthy enough to play for late game");
-          }
-
-          if (numericHp > 0 && numericHp < 45) {
-            score -= 12;
-            reasons.push("Low HP makes this line risky");
-          }
-
-          if (numericLevel >= 7) {
-            score += 5;
-            reasons.push("Level is close to the required board timing");
-          }
-        }
-
-        if (comp.style === "reroll") {
-          if (selectedBoards.includes("Reroll copies")) {
-            score += 15;
-            reasons.push("You already have reroll copies");
-          }
-
-          if (numericLevel > 0 && numericLevel <= 6) {
-            score += 6;
-            reasons.push("Good level range for reroll");
-          }
-
-          if (numericGold >= 30) {
-            score += 6;
-            reasons.push("Enough gold to roll");
-          }
-
-          if (stage.startsWith("4")) {
-            score -= 8;
-            reasons.push("Late stage makes reroll harder");
-          }
-        }
-
-        if (comp.style === "emblem") {
-          if (allItemTags.includes("Emblem") || selectedAugments.includes("Trait")) {
-            score += 18;
-            reasons.push("You have emblem or trait support");
-          } else {
-            score -= 12;
-            reasons.push("Missing emblem or trait support");
-          }
-        }
-
-        return {
-          ...comp,
-          score: clampScore(score),
-          reasons: Array.from(new Set(reasons)).slice(0, 4),
-        };
-      })
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 3);
+    return calculateBestLines({
+      stage,
+      level,
+      gold,
+      hp,
+      selectedItems,
+      selectedAugments,
+      selectedBoards,
+      itemTags,
+      comps,
+    });
   }, [stage, level, gold, hp, selectedItems, selectedAugments, selectedBoards]);
 
   return (

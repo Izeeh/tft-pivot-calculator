@@ -2,32 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { comps } from "./data/comps";
-
-const items = ["Sword", "Bow", "Rod", "Tear", "Belt", "Cloak", "Glove", "Chain", "Spatula"];
-
-const augments = ["Economy", "Combat", "AP", "AD", "Reroll", "Tank", "Item", "Trait"];
-
-const boards = [
-  "AP opener",
-  "AD opener",
-  "Tank frontline",
-  "Reroll copies",
-  "Strongest board",
-  "Win streak",
-  "Lose streak",
-];
-
-const itemTags: Record<string, string[]> = {
-  Sword: ["AD"],
-  Bow: ["AD", "Attack Speed"],
-  Rod: ["AP"],
-  Tear: ["AP", "Mana"],
-  Belt: ["Tank"],
-  Cloak: ["Tank"],
-  Glove: ["Flex"],
-  Chain: ["Tank"],
-  Spatula: ["Emblem"],
-};
+import { augments, boards, items, itemTags } from "./data/gameData";
 
 function toggleValue(value: string, list: string[], setList: (value: string[]) => void) {
   if (list.includes(value)) {

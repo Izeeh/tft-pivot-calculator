@@ -1,0 +1,44 @@
+export const items = [
+  "Sword",
+  "Bow",
+  "Rod",
+  "Tear",
+  "Belt",
+  "Cloak",
+  "Glove",
+  "Chain",
+  "Spatula",
+];
+
+export const augments = [
+  "Economy",
+  "Combat",
+  "AP",
+  "AD",
+  "Reroll",
+  "Tank",
+  "Item",
+  "Trait",
+];
+
+export const boards = [
+  "AP opener",
+  "AD opener",
+  "Tank frontline",
+  "Reroll copies",
+  "Strongest board",
+  "Win streak",
+  "Lose streak",
+];
+
+export const itemTags: Record<string, string[]> = {
+  Sword: ["AD"],
+  Bow: ["AD", "Attack Speed"],
+  Rod: ["AP"],
+  Tear: ["AP", "Mana"],
+  Belt: ["Tank"],
+  Cloak: ["Tank"],
+  Glove: ["Flex"],
+  Chain: ["Tank"],
+  Spatula: ["Emblem"],
+};

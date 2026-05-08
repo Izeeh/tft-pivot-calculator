@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { comps } from "./data/comps";
-import { augments, boards, items, itemTags, stages, units } from "./data/gameData";
+import { augments, boards, items, itemTags, levels, stages, units } from "./data/gameData";
 import { calculateBestLines } from "./lib/scoring";
 
 function toggleValue(value: string, list: string[], setList: (value: string[]) => void) {
@@ -73,12 +73,25 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-3 gap-4 mb-6">
-              <input
-                value={level}
-                onChange={(event) => setLevel(event.target.value)}
-                className="rounded-lg bg-gray-900 border border-gray-700 p-3"
-                placeholder="Level: 6"
-              />
+                            <div className="col-span-3">
+                <p className="font-semibold mb-3">Level</p>
+                <div className="flex flex-wrap gap-2">
+                  {levels.map((levelOption) => (
+                    <button
+                      key={levelOption}
+                      type="button"
+                      onClick={() => setLevel(levelOption)}
+                      className={`rounded-lg border px-4 py-2 ${
+                        level === levelOption
+                          ? "bg-white text-black border-white"
+                          : "bg-gray-900 border-gray-700"
+                      }`}
+                    >
+                      {levelOption}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
               <input
                 value={gold}

@@ -9,6 +9,7 @@ export const stages = [
 ];
 
 export const levels = [
+  "3",
   "4",
   "5",
   "6",

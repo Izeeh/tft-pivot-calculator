@@ -72,40 +72,46 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 mb-6">
-                            <div className="col-span-3">
-                <p className="font-semibold mb-3">Level</p>
-                <div className="flex flex-wrap gap-2">
-                  {levels.map((levelOption) => (
-                    <button
-                      key={levelOption}
-                      type="button"
-                      onClick={() => setLevel(levelOption)}
-                      className={`rounded-lg border px-4 py-2 ${
-                        level === levelOption
-                          ? "bg-white text-black border-white"
-                          : "bg-gray-900 border-gray-700"
-                      }`}
-                    >
-                      {levelOption}
-                    </button>
-                  ))}
-                </div>
+            <div className="mb-6">
+              <p className="font-semibold mb-3">Level</p>
+              <div className="flex flex-wrap gap-2">
+                {levels.map((levelOption) => (
+                  <button
+                    key={levelOption}
+                    type="button"
+                    onClick={() => setLevel(levelOption)}
+                    className={`rounded-lg border px-4 py-2 ${
+                      level === levelOption
+                        ? "bg-white text-black border-white"
+                        : "bg-gray-900 border-gray-700"
+                    }`}
+                  >
+                    {levelOption}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+              <div>
+                <p className="font-semibold mb-3">Gold</p>
+                <input
+                  value={gold}
+                  onChange={(event) => setGold(event.target.value)}
+                  className="w-full rounded-lg bg-gray-900 border border-gray-700 p-3"
+                  placeholder="Gold"
+                />
               </div>
 
-              <input
-                value={gold}
-                onChange={(event) => setGold(event.target.value)}
-                className="rounded-lg bg-gray-900 border border-gray-700 p-3"
-                placeholder="Gold: 40"
-              />
-
-              <input
-                value={hp}
-                onChange={(event) => setHp(event.target.value)}
-                className="rounded-lg bg-gray-900 border border-gray-700 p-3"
-                placeholder="HP: 72"
-              />
+              <div>
+                <p className="font-semibold mb-3">HP</p>
+                <input
+                  value={hp}
+                  onChange={(event) => setHp(event.target.value)}
+                  className="w-full rounded-lg bg-gray-900 border border-gray-700 p-3"
+                  placeholder="HP"
+                />
+              </div>
             </div>
 
             <h3 className="font-semibold mb-3">Items</h3>

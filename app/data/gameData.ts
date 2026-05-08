@@ -18,7 +18,21 @@ export const levels = [
   "9",
   "10",
 ];
+export const goldOptions = [
+  { label: "0-9", value: "5" },
+  { label: "10-19", value: "15" },
+  { label: "20-29", value: "25" },
+  { label: "30-39", value: "35" },
+  { label: "40-49", value: "45" },
+  { label: "50+", value: "55" },
+];
 
+export const hpOptions = [
+  { label: "Low HP", value: "35" },
+  { label: "Medium HP", value: "55" },
+  { label: "Healthy", value: "75" },
+  { label: "Very Healthy", value: "90" },
+];
 export const economyStates = [
   "Low gold",
   "Stable economy",

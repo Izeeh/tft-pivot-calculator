@@ -30,6 +30,20 @@ export const boards = [
   "Win streak",
   "Lose streak",
 ];
+export const units = [
+  "AP item holder",
+  "AD item holder",
+  "Main tank",
+  "Multiple reroll copies",
+  "Dark Star unit",
+  "Brawler unit",
+  "Stargazer unit",
+  "Primordian unit",
+  "Twisted Fate",
+  "Vex",
+  "Master Yi",
+  "Xayah",
+];
 
 export const itemTags: Record<string, string[]> = {
   Sword: ["AD"],

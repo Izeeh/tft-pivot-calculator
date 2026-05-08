@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { comps } from "./data/comps";
-import { augments, boards, items, itemTags } from "./data/gameData";
+import { augments, boards, items, itemTags, units } from "./data/gameData";
 import { calculateBestLines } from "./lib/scoring";
 
 function toggleValue(value: string, list: string[], setList: (value: string[]) => void) {
@@ -22,6 +22,7 @@ export default function Home() {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [selectedAugments, setSelectedAugments] = useState<string[]>([]);
   const [selectedBoards, setSelectedBoards] = useState<string[]>([]);
+  const [selectedUnits, setSelectedUnits] = useState<string[]>([]);
 
   const results = useMemo(() => {
     return calculateBestLines({
@@ -32,10 +33,11 @@ export default function Home() {
       selectedItems,
       selectedAugments,
       selectedBoards,
+      selectedUnits,
       itemTags,
       comps,
     });
-  }, [stage, level, gold, hp, selectedItems, selectedAugments, selectedBoards]);
+  }, [stage, level, gold, hp, selectedItems, selectedAugments, selectedBoards, selectedUnits]);
 
   return (
     <main className="min-h-screen bg-black text-white p-8">
@@ -115,7 +117,7 @@ export default function Home() {
             </div>
 
             <h3 className="font-semibold mb-3">Current Board</h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-6">
               {boards.map((board) => (
                 <button
                   key={board}
@@ -131,6 +133,23 @@ export default function Home() {
               ))}
             </div>
 
+            <h3 className="font-semibold mb-3">Units / Key Pieces</h3>
+            <div className="flex flex-wrap gap-2">
+              {units.map((unit) => (
+                <button
+                  key={unit}
+                  onClick={() => toggleValue(unit, selectedUnits, setSelectedUnits)}
+                  className={`rounded-lg border px-4 py-2 ${
+                    selectedUnits.includes(unit)
+                      ? "bg-white text-black border-white"
+                      : "bg-gray-900 border-gray-700"
+                  }`}
+                >
+                  {unit}
+                </button>
+              ))}
+            </div>
+
             <button
               type="button"
               onClick={() => {
@@ -141,6 +160,7 @@ export default function Home() {
                 setSelectedItems([]);
                 setSelectedAugments([]);
                 setSelectedBoards([]);
+                setSelectedUnits([]);
               }}
               className="mt-6 w-full rounded-xl border border-gray-700 bg-gray-900 px-4 py-3 font-semibold hover:bg-gray-800"
             >
@@ -164,6 +184,10 @@ export default function Home() {
 
               <p className="text-sm text-gray-400">
                 Board: {selectedBoards.length > 0 ? selectedBoards.join(", ") : "None"}
+              </p>
+
+              <p className="text-sm text-gray-400">
+                Units: {selectedUnits.length > 0 ? selectedUnits.join(", ") : "None"}
               </p>
             </div>
 

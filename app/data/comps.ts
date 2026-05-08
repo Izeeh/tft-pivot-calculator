@@ -7,6 +7,7 @@ export type Comp = {
   itemTags: string[];
   augmentTags: string[];
   boardTags: string[];
+  unitTags: string[];
   description: string;
   commit: string;
   avoid: string;
@@ -20,6 +21,7 @@ export const comps: Comp[] = [
     itemTags: ["AD", "AP", "Emblem"],
     augmentTags: ["Trait", "Item", "Combat"],
     boardTags: ["Strongest board", "Win streak"],
+    unitTags: ["Dark Star unit", "AP item holder", "AD item holder"],
     description: "Strong if you have emblem/item support and can play tempo.",
     commit: "Commit if you have Dark Star access, strong tempo, or emblem support.",
     avoid: "Avoid if you have no emblem, no direction, and weak economy.",
@@ -31,6 +33,7 @@ export const comps: Comp[] = [
     itemTags: ["AD", "Attack Speed", "Tank"],
     augmentTags: ["Combat", "AD", "Tank"],
     boardTags: ["AD opener", "Tank frontline", "Strongest board"],
+    unitTags: ["Master Yi", "Brawler unit", "AD item holder", "Main tank"],
     description: "Good AD direction if you have frontline and tempo.",
     commit: "Commit if you have AD items, frontline, and can reach level 8 safely.",
     avoid: "Avoid if your HP is too low and you cannot stabilize before stage 4.",
@@ -42,6 +45,7 @@ export const comps: Comp[] = [
     itemTags: ["AP", "Tank"],
     augmentTags: ["Reroll", "Combat"],
     boardTags: ["Reroll copies", "AP opener"],
+    unitTags: ["Primordian unit", "Multiple reroll copies", "AP item holder", "Main tank"],
     description: "Playable only if you naturally hit copies early.",
     commit: "Commit if you already have several copies and enough gold to slow roll.",
     avoid: "Avoid if you are already late or do not have natural copies.",
@@ -53,6 +57,7 @@ export const comps: Comp[] = [
     itemTags: ["AP", "Mana", "Tank"],
     augmentTags: ["Economy", "AP", "Combat"],
     boardTags: ["AP opener", "Strongest board", "Win streak"],
+    unitTags: ["Vex", "AP item holder", "Main tank"],
     description: "Best with good HP, economy and AP item direction.",
     commit: "Commit if you have high HP, good economy, and AP item direction.",
     avoid: "Avoid if you are low HP and forced to roll before reaching level 8 or 9.",
@@ -64,6 +69,7 @@ export const comps: Comp[] = [
     itemTags: ["AP", "Mana"],
     augmentTags: ["Reroll", "AP", "Item"],
     boardTags: ["Reroll copies", "AP opener"],
+    unitTags: ["Twisted Fate", "Multiple reroll copies", "AP item holder"],
     description: "Needs early copies or strong reroll conditions.",
     commit: "Commit if you have early copies, AP items, and a reroll-friendly spot.",
     avoid: "Avoid if you do not have copies by stage 3.",
@@ -75,6 +81,7 @@ export const comps: Comp[] = [
     itemTags: ["AD", "Attack Speed"],
     augmentTags: ["AD", "Combat", "Item"],
     boardTags: ["AD opener", "Win streak"],
+    unitTags: ["Xayah", "Stargazer unit", "AD item holder"],
     description: "Good from AD tempo openers and strong carry items.",
     commit: "Commit if you have AD tempo, attack speed items, and enough HP to reach level 8.",
     avoid: "Avoid if you are missing AD items and your board is not strong enough.",

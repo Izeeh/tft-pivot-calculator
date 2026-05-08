@@ -8,6 +8,7 @@ type ScoringInput = {
   selectedItems: string[];
   selectedAugments: string[];
   selectedBoards: string[];
+  selectedUnits?: string[];
   itemTags: Record<string, string[]>;
   comps: Comp[];
 };
@@ -30,6 +31,7 @@ export function calculateBestLines(input: ScoringInput): ScoredComp[] {
     selectedItems,
     selectedAugments,
     selectedBoards,
+    selectedUnits = [],
     itemTags,
     comps,
   } = input;
@@ -65,6 +67,13 @@ export function calculateBestLines(input: ScoringInput): ScoredComp[] {
         }
       });
 
+      comp.unitTags.forEach((tag) => {
+        if (selectedUnits.includes(tag)) {
+          score += 12;
+          reasons.push(`Good ${tag} unit fit`);
+        }
+      });
+
       if (comp.style === "fast8" || comp.style === "fast9") {
         if (numericGold >= 40) {
           score += 8;
@@ -88,7 +97,7 @@ export function calculateBestLines(input: ScoringInput): ScoredComp[] {
       }
 
       if (comp.style === "reroll") {
-        if (selectedBoards.includes("Reroll copies")) {
+        if (selectedBoards.includes("Reroll copies") || selectedUnits.includes("Multiple reroll copies")) {
           score += 15;
           reasons.push("You already have reroll copies");
         }
@@ -122,7 +131,7 @@ export function calculateBestLines(input: ScoringInput): ScoredComp[] {
       return {
         ...comp,
         score: clampScore(score),
-        reasons: Array.from(new Set(reasons)).slice(0, 4),
+        reasons: Array.from(new Set(reasons)).slice(0, 5),
       };
     })
     .sort((a, b) => b.score - a.score)
